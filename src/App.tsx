@@ -1,25 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  RouteProps
+} from "react-router-dom";
+import CounterPage from './pages/CounterPage';
+import EmployeeListPage from './pages/EmployeeListPage';
+import HomePage from './pages/HomePage';
+import { Grid } from '@material-ui/core';
+import Header from './layout/Header';
+import MyRoutes from './constants/MyRoutes';
 
-function App() {
+const routes: RouteProps[] = [
+  { path: '/counter', component: CounterPage, exact: true },
+  { path: '/employees', component: EmployeeListPage, exact: true },
+  { path: '/', component: HomePage, exact: true },
+];
+
+const tabs = [
+  {label: 'Counter', to: MyRoutes.CounterPage},
+  {label: 'Employees', to: MyRoutes.EmployeeListPage},
+]
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Grid direction="column">
+        <Header items={tabs} />
+        <div>
+          <Switch>
+            {routes.map((data, idx) => <Route key={idx} {...data} />)}
+          </Switch>
+        </div>
+      </Grid>
+    </Router>
   );
 }
 
