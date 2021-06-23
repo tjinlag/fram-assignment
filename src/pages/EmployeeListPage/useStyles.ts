@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import { findByLabelText } from '@testing-library/react';
 
 export default makeStyles({
   container: {
